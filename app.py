@@ -28,10 +28,7 @@ def random_euan():
 
 @app.route("/euan/count")
 def count_euan():
-    images = [f for f in os.listdir(IMAGE_FOLDER)
-            if os.path.isfile(os.path.join(IMAGE_FOLDER, f))]
-
-    return len(images)
+    return str(len(os.listdir(IMAGE_FOLDER)))
 
 @app.route("/")
 def demo():
