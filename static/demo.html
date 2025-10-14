@@ -7,14 +7,19 @@
 </head>
 <body>
     <h1>Euan's Face Pics</h1>
-    <img id="randomImg" src="https://euan.olive.hackclub.app/euan/random" width="700px" height="auto" alt="random image of euan"/>
+    <img class="randomImg" src="https://euan.olive.hackclub.app/euan/random" width="700px" height="auto" alt="random image of euan"/>
+    <img class="randomImg" src="https://euan.olive.hackclub.app/euan/random" width="400px" height="auto" alt="random image of euan but smaller"/>
+    <img class="randomImg" src="https://euan.olive.hackclub.app/euan/random" width="100px" height="auto" alt="random image of euan but even smaller than the other one"/>
+
 
     <script>
-    setInterval(() => {
-    document.getElementById("randomImg").src =
-        "https://euan.olive.hackclub.app/euan/random?stop_cache" + Math.random();
-        console.log("updated image")
-    }, 4000);
+        setInterval(() => {
+            const randomImageUrl = "https://euan.olive.hackclub.app/euan/random?stop_cache=" + Math.random();
+            document.querySelectorAll(".randomImg").forEach(img => {
+                img.src = randomImageUrl;
+            });
+            console.log("updated images")
+        }, 4000);
     </script>
 
     <h2>How to use this</h2>
