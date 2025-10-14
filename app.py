@@ -1,4 +1,4 @@
-from flask import Flask, send_file
+from flask import Flask, send_file, send_from_directory
 import os
 from dotenv import load_dotenv
 import random
@@ -26,5 +26,8 @@ def random_euan():
 
     return send_file(os.path.join(IMAGE_FOLDER, chosen), mimetype="image/*")
 
+@app.route("/")
+def demo():
+    return send_from_directory(app.static_folder, "demo.html")
 if __name__ == "__main__":
     app.run()
