@@ -29,5 +29,6 @@ def random_euan():
 @app.route("/")
 def demo():
     return send_from_directory(app.static_folder, "demo.html")
+
 if __name__ == "__main__":
     app.run()

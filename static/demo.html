@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+</head>
+<body>
+    <h1>Euan's Face Pics</h1>
+    <img id="randomImg" src="http://127.0.0.1:5000/random_euan" width="700px" height="auto" alt="random image of euan"/>
+
+    <script>
+    setInterval(() => {
+    document.getElementById("randomImg").src =
+        "http://127.0.0.1:5000/random_euan?stop_cache" + Math.random();
+        console.log("updated image")
+    }, 4000);
+</script>
+</body>
+</html>
