@@ -13,7 +13,7 @@ load_dotenv()
 
 os.makedirs(IMAGE_FOLDER, exist_ok=True)
 
-@app.route("/random_euan")
+@app.route("/euan/random")
 def random_euan():
     images = [f for f in os.listdir(IMAGE_FOLDER)
              if os.path.isfile(os.path.join(IMAGE_FOLDER, f))]
@@ -25,6 +25,13 @@ def random_euan():
     chosen = random.choice(images)
 
     return send_file(os.path.join(IMAGE_FOLDER, chosen), mimetype="image/*")
+
+@app.route("/euan/count")
+def count_euan():
+    images = [f for f in os.listdir(IMAGE_FOLDER)
+            if os.path.isfile(os.path.join(IMAGE_FOLDER, f))]
+
+    return len(images)
 
 @app.route("/")
 def demo():
