@@ -1,8 +1,11 @@
 from flask import Flask, send_file, send_from_directory, redirect, url_for
+from werkzeug.middleware.proxy_fix import ProxyFix
 from dotenv import load_dotenv
 import os, random, uuid
 
 app = Flask(__name__)
+
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1) # show external ips (not caddy's)
 
 project_root = os.path.dirname(__file__)
 
