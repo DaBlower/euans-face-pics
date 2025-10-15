@@ -1,7 +1,6 @@
 from flask import Flask, send_file, send_from_directory, redirect, url_for
-import os
 from dotenv import load_dotenv
-import random
+import os, random, uuid
 
 app = Flask(__name__)
 
@@ -23,21 +22,15 @@ def random_euan():
         return f"""sorry, there aren't any images (aka something went horribly wrong), please contact <a href="mailto:{mail}">{mail}</a>""", 404
     
     chosen = random.choice(images)
+    unique_id = uuid.uuid4()
 
-    response = send_file(os.path.join(IMAGE_FOLDER, chosen), mimetype="image/*")
-    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "0"
-    return response
+    return redirect(url_for('serve_img', image_name=chosen, unique=unique_id, _external=True))
 
-@app.route("/euan/random_cache_buster")
-def random_euan_redirect():
-    cache_buster = random.randint(0, 1_000_000_000)
-    response = redirect(url_for("random_euan", _external=True, cache_bust=cache_buster))
-    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "0"
-    return response
+
+@app.route("/euan/img/<uuid>/<image_name>")
+def serve_img(uuid, image_name):
+    path = os.path.join(IMAGE_FOLDER, image_name)
+    return send_file(path, mimetype="image/*")
 
 @app.route("/euan/count")
 def count_euan():
