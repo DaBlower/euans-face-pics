@@ -24,12 +24,20 @@ def random_euan():
     
     chosen = random.choice(images)
 
-    return send_file(os.path.join(IMAGE_FOLDER, chosen), mimetype="image/*")
+    response = send_file(os.path.join(IMAGE_FOLDER, chosen), mimetype="image/*")
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
 
 @app.route("/euan/random_cache_buster")
 def random_euan_redirect():
     cache_buster = random.randint(0, 1_000_000_000)
-    return redirect(url_for("random_euan", _external=True, cache_bust=cache_buster))
+    response = redirect(url_for("random_euan", _external=True, cache_bust=cache_buster))
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
 
 @app.route("/euan/count")
 def count_euan():
