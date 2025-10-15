@@ -13,7 +13,7 @@ load_dotenv()
 os.makedirs(IMAGE_FOLDER, exist_ok=True)
 
 @app.route("/euan/random")
-@app.route("/euan/random_bypass")
+@app.route("/euan/random_slack")
 def random_euan():
     images = [f for f in os.listdir(IMAGE_FOLDER)
              if os.path.isfile(os.path.join(IMAGE_FOLDER, f))]
