@@ -1,4 +1,4 @@
-from flask import Flask, send_file, send_from_directory
+from flask import Flask, send_file, send_from_directory, redirect, url_for
 import os
 from dotenv import load_dotenv
 import random
@@ -25,6 +25,11 @@ def random_euan():
     chosen = random.choice(images)
 
     return send_file(os.path.join(IMAGE_FOLDER, chosen), mimetype="image/*")
+
+@app.route("/euan/random_cache_buster")
+def random_euan_redirect():
+    cache_buster = random.randint(0, 1_000_000_000)
+    return redirect(url_for("random_euan", _external=True, cache_bust=cache_buster))
 
 @app.route("/euan/count")
 def count_euan():
