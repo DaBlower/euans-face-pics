@@ -24,7 +24,7 @@ def random_euan():
     chosen = random.choice(images)
     unique_id = uuid.uuid4()
 
-    return redirect(url_for('serve_img', image_name=chosen, unique=unique_id, _external=True))
+    return redirect(url_for('serve_img', image_name=chosen, uuid=unique_id, _external=True))
 
 
 @app.route("/euan/img/<uuid>/<image_name>")
