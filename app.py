@@ -1,4 +1,4 @@
-from flask import Flask, send_file, send_from_directory, redirect, url_for
+from flask import Flask, send_file, send_from_directory, redirect, url_for, request
 from werkzeug.middleware.proxy_fix import ProxyFix
 from dotenv import load_dotenv
 import os, random, uuid
@@ -10,6 +10,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1) # show external ips (n
 project_root = os.path.dirname(__file__)
 
 IMAGE_FOLDER = os.path.join(project_root, "images")
+CACHE_BUSTER_LOG = os.path.join(project_root, "slack_cache_busters.txt")
 
 load_dotenv()
 
@@ -25,6 +26,14 @@ def random_euan():
         mail = os.getenv("dev_email")
         return f"""sorry, there aren't any images (aka something went horribly wrong), please contact <a href="mailto:{mail}">{mail}</a>""", 404
     
+    user_agent = request.headers.get("User-Agent", "")
+    cache_buster = request.args.get("cache_buster")
+
+    if cache_buster and "Slackbot" in user_agent:
+        # Track Slack cache busting tokens for debugging CDN behavior.
+        with open(CACHE_BUSTER_LOG, "a", encoding="utf-8") as log_file:
+            log_file.write(f"{cache_buster}\n")
+
     chosen = random.choice(images)
     unique_id = uuid.uuid4()
 
