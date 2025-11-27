@@ -7,4 +7,7 @@ The /euan/random endpoint returns a random image of Euan, and you can use it lik
 
 You can also make a request to the /euan/count endpoint to get the amount of images that this API currently has
 
+## Contributing
+If you want to add images of Euan, just add it to the /images directory and submit a pull request
+
 uhh that's basically it
