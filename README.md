@@ -1,3 +1,6 @@
+> [!WARNING]
+> uhh this has now been moved to an actual HC repo: https://github.com/hackclub/euan
+
 # Euan's Face Pics
 This is a really simple api that serves images of the one and only Euan Ripper
 ## Usage
